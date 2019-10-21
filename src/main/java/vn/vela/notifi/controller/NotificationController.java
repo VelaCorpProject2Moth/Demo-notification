@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.vela.notifi.dto.DeviceAddDto;
+import vn.vela.notifi.dto.MessageDto;
 import vn.vela.notifi.entity.Device;
 import vn.vela.notifi.service.DeviceService;
+import vn.vela.notifi.service.NotificationService;
 import vn.vela.notifi.ultils.EntityValidUtils;
 
 @RestController
@@ -19,11 +21,19 @@ public class NotificationController {
   @Autowired
   private DeviceService deviceService;
 
+  @Autowired
+  private NotificationService notificationService;
+
   @PostMapping("/save-device")
   public Device createNewDevice(@Valid @RequestBody DeviceAddDto deviceDto,
       BindingResult bindingResult) {
     EntityValidUtils.processBindingResults(bindingResult);
     return deviceService.saveDevice(deviceDto);
+  }
+
+  @PostMapping
+  public void sendNotiInApp(@RequestBody MessageDto messageDto) {
+    notificationService.sendNotiInApp(messageDto);
   }
 
 }
