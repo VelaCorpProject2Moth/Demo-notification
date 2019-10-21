@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DeviceDto {
+public class DeviceAddDto {
 
   private String firebaseProjectName;
   private String firebaseDeviceToken;
