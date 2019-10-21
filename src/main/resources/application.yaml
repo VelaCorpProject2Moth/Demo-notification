@@ -1,0 +1,69 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: notification-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: /ping
+        health-check-interval: 20s
+        enabled: true
+        instance-id: ${spring.application.name}:${random.value}
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60000
+  redis:
+    host: localhost
+    port: 6379
+    database: 2
+  jpa:
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/notifi_service?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: postgres
+    password: 123456
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: notification_group
+    properties:
+      topics:
+        notification-topic: notification-service.notification
+        out-app-topic: notification-service.notification.out.app
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    shutdown:
+      enabled: true
+
+vn:
+  velacorp:
+    uaa:
+      url: https://gw.dev.velacorp.vn/
+firebase:
+  url: "https://fcm.googleapis.com/fcm/send"
+  server_key: AAAAXPyQHAg:APA91bG11ad0kNt_2m_tUXDg_WtupQ9BukPTkF5xer-GYpGV9_iE9KhMfwBC7kN1t9y6xpHQuBYJAxjWlR0KjomZBKsSeN2EXQfg4o8hyJNcjqjA9GXWLC9Xc4mcYC8OaVDePa1F0nI6
+  token_id: d1mWQ_fubOk:APA91bHw1BdFq_HHDlTj4NMZ54VvE-59xLCJ52-lu_XNBIUkw2szLVu5OBhGfNQOz1ev9Gyq6QGeX05w_6Uk4vNFU_LsZpCUnzUMUQLU3CbsERPS9ptSvvSGqjlPFR9Nk4j_l5ijR3oB
+
+
