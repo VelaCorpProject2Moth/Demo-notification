@@ -12,8 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MessageDto {
 
-  @NotNull(message = "err.send.notification.productId-is-mandatory")
-  private Long productId;
   @NotNull(message = "err.send.notification.url-is-mandatory")
   private String url;
   @NotNull(message = "err.send.notification.icon-is-mandatory")
