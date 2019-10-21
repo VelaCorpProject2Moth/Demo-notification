@@ -21,5 +21,7 @@ public class MessageDto {
   private Long deviceId;
   @NotNull(message = "err.send.notification.platform-is-mandatory")
   private int platform;
+  @NotNull(message = "err.send.notification.body-is-mandatory")
+  private String body;
 
 }
