@@ -46,7 +46,7 @@ spring:
       group-id: notification_group
     properties:
       topics:
-        notification-topic: notification-service.notification
+        notification-topic: notification-service.notification1
         out-app-topic: notification-service.notification.out.app
 
 management:

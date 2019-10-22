@@ -17,7 +17,7 @@ public class NotificationMessageBus {
   @Value("spring.kafka.consumer.group_id")
   private String groupId;
 
-  private static final String CHANEL = "/topic/notifications/";
+  private static final String CHANEL = "/topic/notifications";
 
   @Autowired
   private SimpMessagingTemplate template;
