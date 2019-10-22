@@ -1,15 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/html">
 <head>
-  <meta charset="UTF-8">
-  <title>Push Notifications</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Push Notification Demo</title>
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <script src="js/jquery-3.1.0.min.js"></script>
+
 </head>
 <body>
-<textarea type="text"  id="textArea" placeholder="Push Notifications..." rows="15" cols="60"></textarea>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Push Notification Demo</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <button class="btn btn-primary" id="btnPushNotifications" name="btnPushNotifications">
+        Enable Push Messaging
+      </button>
+    </div>
+  </div>
+</div>
+<!--<script src="js/main.js"></script>-->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
 
-<script src='js/jquery.min.js'></script>
-<script src="js/index.js"></script>
-<script src="/webjars/sockjs-client/sockjs.min.js"></script>
-<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-messaging.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyD1Wjv33jMYHRH1tbVWabMuNF16g3UlXNM",
+    authDomain: "fir-push-notifi-93bf7.firebaseapp.com",
+    databaseURL: "https://fir-push-notifi-93bf7.firebaseio.com",
+    projectId: "fir-push-notifi-93bf7",
+    storageBucket: "fir-push-notifi-93bf7.appspot.com",
+    messagingSenderId: "399374294024",
+    appId: "1:399374294024:web:0ce716440b5262787f85bd",
+    measurementId: "G-98MWRF14DH"
+  };
+  // Initialize Firebase
+  // firebase.initializeApp(firebaseConfig);
+  // firebase.analytics();
+</script>
+<script>
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+    .register("./firebase-messaging-sw.js")
+    .then(function (registration) {
+      console.log("Registration successful, scope is:", registration.scope);
+    })
+    .catch(function (err) {
+      console.log("Service worker registration failed, error:", err);
+    });
+  }
+  firebase.initializeApp(firebaseConfig);
+
+  const messaging = firebase.messaging();
+  // dung public key firebase cung cap
+  messaging.usePublicVapidKey(
+      "BAv6fWstZcSC-I41xNltZ-pVO4bLh5fwvJkzHAbvF5KAyebVUIrToeLf9c0Zzubx5JqEIkad1ufUzbmaYFleGiY");
+  messaging.requestPermission()
+  .then(async function () {
+    const token = await messaging.getToken();
+    console.log(token)
+  })
+  .catch(function (err) {
+    console.log("Unable to get permission to notify.", err);
+  });
+  navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
+  messaging.onMessage((payload) => console.log('Message received. ', payload));
+
+
+</script>
 </body>
 </html>
