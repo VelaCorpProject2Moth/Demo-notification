@@ -5,4 +5,6 @@ import vn.vela.notifi.entity.Device;
 
 public interface DeviceRepository extends JpaRepository<Device, Long> {
 
+  Device findByFirebaseDeviceToken(String tokenId);
+
 }
