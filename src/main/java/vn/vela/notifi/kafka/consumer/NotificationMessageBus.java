@@ -9,6 +9,7 @@ import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import vn.vela.notifi.dto.MessageDto;
+import vn.vela.notifi.service.FcmService;
 
 @Component
 @Log4j2
@@ -21,6 +22,9 @@ public class NotificationMessageBus {
 
   @Autowired
   private SimpMessagingTemplate template;
+
+  @Autowired
+  private FcmService fcmService;
 
 
   @KafkaListener(topics = "${spring.kafka.properties.topics.notification-topic}",
@@ -36,8 +40,25 @@ public class NotificationMessageBus {
     }
   }
 
+  @KafkaListener(topics = "${spring.kafka.properties.topics.out-app-topic}",
+      groupId = "${spring.kafka.consumer.group-id}",
+      containerFactory = "kafkaListenerContainerFactory")
+  public void sendOutApp(ConsumerRecord pushMessage) {
+    try {
+      log.info("Consume message with event " + pushMessage.toString());
+      MessageDto messageDto = (MessageDto) pushMessage.value();
+      sendFcmApi(messageDto);
+    } catch (MessagingException e) {
+      log.error("Convert and send message fail: " + e);
+    }
+  }
+
   private void sendMessageSocket(MessageDto messageDto) {
     this.template
         .convertAndSend(CHANEL , messageDto);
+  }
+
+  private void sendFcmApi(MessageDto messageDto) {
+    fcmService.sendNotiWithApiFcm(messageDto);
   }
 }

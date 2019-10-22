@@ -25,4 +25,9 @@ public class NotificationServiceImpl implements NotificationService {
   public void sendNotiInApp(MessageDto messageDto) {
     kafkaTemplate.send(inAppTopic, messageDto);
   }
+
+  @Override
+  public void sendOutApp(MessageDto messageDto) {
+    kafkaTemplate.send(outAppTopic, messageDto);
+  }
 }

@@ -31,9 +31,14 @@ public class NotificationController {
     return deviceService.saveDevice(deviceDto);
   }
 
-  @PostMapping
+  @PostMapping("/send-it-appp")
   public void sendNotiInApp(@RequestBody MessageDto messageDto) {
     notificationService.sendNotiInApp(messageDto);
+  }
+
+  @PostMapping("/send-out-app")
+  public void sendNotiOutApp(@RequestBody MessageDto messageDto) {
+    notificationService.sendOutApp(messageDto);
   }
 
 }

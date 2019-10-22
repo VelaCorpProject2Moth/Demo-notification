@@ -5,4 +5,6 @@ import vn.vela.notifi.dto.MessageDto;
 public interface NotificationService {
 
   void sendNotiInApp(MessageDto messageDto);
+
+  void sendOutApp(MessageDto messageDto);
 }
