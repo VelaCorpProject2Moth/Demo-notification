@@ -13,6 +13,7 @@ public class LiquibaseConfiguration {
   /**
    * The Application context.
    */
+//  khai bao aplication context de lay thong tin bean spring sinh ra
   @Autowired
   ApplicationContext applicationContext;
 
@@ -25,6 +26,7 @@ public class LiquibaseConfiguration {
   public SpringLiquibase liquibase() {
     SpringLiquibase liquibase = new SpringLiquibase();
     liquibase.setChangeLog("classpath:liquibase/db.changelog-master.xml");
+//    lay thong tin datasource ma spring da sinh ra, neu ko co phai khai bao bean de dung database
     liquibase.setDataSource((DataSource) applicationContext.getBean("dataSource"));
     return liquibase;
   }

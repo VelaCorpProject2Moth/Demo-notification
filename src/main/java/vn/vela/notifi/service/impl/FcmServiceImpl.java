@@ -47,6 +47,7 @@ public class FcmServiceImpl implements FcmService {
   }
 
 
+  // xay dung object de send to fcm api
   private JsonObject buildMessage(MessageDto messageDto) {
     Gson gson = new GsonBuilder().create();
     JsonElement messElement = gson.toJsonTree(messageDto);

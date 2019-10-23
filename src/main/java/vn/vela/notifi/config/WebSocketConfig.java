@@ -17,12 +17,14 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+  // dang ky chanel nghe thong bao qua tien to topic
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
     config.enableSimpleBroker("/topic");
     config.setApplicationDestinationPrefixes("/app");
   }
 
+//  dang ky endpoint la websocket de client cap nhat thong bao
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
     registry.addEndpoint("/websocket").setAllowedOrigins("*")
@@ -30,6 +32,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         .withSockJS();
   }
 
+//  config transport duong dan su dung cho websocket
   @Override
   public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
     registry.addDecoratorFactory(new WebSocketHandlerDecoratorFactory() {

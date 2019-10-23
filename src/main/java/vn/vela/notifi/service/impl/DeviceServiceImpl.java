@@ -19,6 +19,7 @@ public class DeviceServiceImpl implements DeviceService {
 
   @Override
   public Device saveDevice(DeviceAddDto deviceDto) {
+    // check neu token ton tai thi tra ve object --> truong hop refresh client
     Device deviceCheck = this.findByTokenId(deviceDto.getFirebaseDeviceToken());
     if (deviceCheck != null) {
       return deviceCheck;

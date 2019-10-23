@@ -12,6 +12,7 @@ public class BeanConfiguration {
    *
    * @return the rest template
    */
+// khai bao bean de su dung rest template dung de call api trong spring
   @Bean
   public RestTemplate restTemplate() {
     return new RestTemplate();
