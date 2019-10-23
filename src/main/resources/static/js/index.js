@@ -9,6 +9,7 @@ function connect() {
       null, {transports: sockJsProtocols});
   stompClient = Stomp.over(socket);
   stompClient.connect({}, function (frame) {
+    //dang ky chanel nhan notifi
     stompClient.subscribe('/topic/notifications', function (notification) {
       $('#textArea').val(notification);
     });
