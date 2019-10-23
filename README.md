@@ -14,6 +14,21 @@ Chu y : doi server port de chay duoc static file
 
 Vi du : muon chay static file : localhosst:8083
 
+De chay duoc client can cai dat firebase cli:
+
+Cai dat firebase tool: 
+sudo npm install -g firebase-tools
+
+Login firebase:
+sudo firebase login
+
+
+Init firebase:
+Cd vao project
+
+11:34:16] macbook:webpush-java-demo git:(master*) $ sudo firebase init
+Sau do chon project dang ky
+Init all khi co yeu cau
 
 
 
