@@ -62,7 +62,7 @@
   firebase.initializeApp(firebaseConfig);
 
   const messaging = firebase.messaging();
-  // dung public key firebase cung cap
+  // dung public key firebase cung cap, co trong phan cloud messaging --> web configuration
   messaging.usePublicVapidKey(
       "BAv6fWstZcSC-I41xNltZ-pVO4bLh5fwvJkzHAbvF5KAyebVUIrToeLf9c0Zzubx5JqEIkad1ufUzbmaYFleGiY");
   messaging.requestPermission()
